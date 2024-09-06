@@ -13,4 +13,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// delete example tables and then create necessary tables
+model s2023 {
+  id             Int     @id
+  player_name    String
+  age            Int
+  games          Int
+  games_started  Int?
+  minutes        Int?
+  field_goals    Int?
+  field_attempts Int?
+  field_percent  String?
+  three_fg       Int?
+  three_attempts Int?
+  three_percent  String?
+  two_fg         Int?
+  two_attempts   Int?
+  two_percent    String?
+  ft             Int?
+  fta            Int?
+  ft_percent     String?
+  ORB            Int?
+  DRB            Int?
+  TRB            Int?
+  AST            Int?
+  STL            Int?
+  BLK            Int?
+  TOV            Int?
+  PTS            Int?
+  team           String
+  season         Int
+}
