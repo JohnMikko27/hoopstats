@@ -43,3 +43,34 @@ model s2023 {
   team           String
   season         Int
 }
+
+model s2023Average {
+  id             Int     @id
+  player_name    String
+  age            Int
+  games          Float
+  games_started  Float?
+  minutes        Float?
+  field_goals    Float?
+  field_attempts Float?
+  field_percent  String?
+  three_fg       Float?
+  three_attempts Float?
+  three_percent  String?
+  two_fg         Float?
+  two_attempts   Float?
+  two_percent    String?
+  ft             Float?
+  fta            Float?
+  ft_percent     String?
+  ORB            Float?
+  DRB            Float?
+  TRB            Float?
+  AST            Float?
+  STL            Float?
+  BLK            Float?
+  TOV            Float?
+  PTS            Float?
+  team           String
+  season         Int
+}
