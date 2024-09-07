@@ -43,8 +43,7 @@ async function main() {
       })
     }
   }
-  // const rows = await prisma.s2023.findMany()
-  // console.log(rows)
+ 
 }
 
 main()
