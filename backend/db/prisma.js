@@ -2,9 +2,6 @@ const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient()
 
-// the tofixed work for the field_percent and other percents but not the other ones, gotta fix that
-// also fix the type of age in schema.prisma
-
 async function main() {
   let url = "https://nba-stats-db.herokuapp.com/api/playerdata/season/2023/"
   while (url !== null) {
