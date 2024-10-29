@@ -6,7 +6,7 @@ attrs==24.2.0
 backcall==0.2.0
 beautifulsoup4==4.12.3
 bleach==6.1.0
-certifi==2024.8.30
+certifi==2023.11.17
 charset-normalizer==3.4.0
 click==8.1.7
 decorator==5.1.1
@@ -36,10 +36,13 @@ MarkupSafe==3.0.2
 matplotlib-inline==0.1.7
 mdurl==0.1.2
 mistune==3.0.2
+nba_api==1.6.0
 nbclient==0.10.0
 nbconvert==7.16.4
 nbformat==5.10.4
+numpy==1.26.4
 packaging==24.1
+pandas==2.2.3
 pandocfilters==1.5.1
 parso==0.8.4
 pexpect==4.9.0
@@ -55,6 +58,7 @@ Pygments==2.18.0
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
 python-multipart==0.0.12
+pytz==2024.2
 PyYAML==6.0.2
 pyzmq==26.2.0
 referencing==0.35.1
@@ -72,6 +76,7 @@ tornado==6.4.1
 traitlets==5.14.3
 typer==0.12.5
 typing_extensions==4.12.2
+tzdata==2024.2
 urllib3==2.2.3
 uvicorn==0.32.0
 uvloop==0.21.0
