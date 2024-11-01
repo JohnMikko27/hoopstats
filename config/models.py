@@ -18,7 +18,7 @@ class Player(Base):
 class Season(Base):
     __tablename__ = "Season"
 
-    season_id = Column(Integer, primary_key=True, nullable=False)
+    season_id = Column(String, primary_key=True, nullable=False)
     player_id = Column(Integer, ForeignKey("Player.player_id"))
     year = Column(String, nullable=False)
     

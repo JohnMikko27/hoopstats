@@ -12,7 +12,6 @@ router = APIRouter()
 def fetch_player_info(name: str, db: Session):
     indexes = { "PERSON_ID": 0, "FIRST_NAME": 1, "LAST_NAME": 2, "DISPLAY_FIRST_LAST": 3,
             "BIRTHDATE": 7, "HEIGHT": 11, "WEIGHT": 12, "SEASON_EXP": 13}
-    
     # check if player in db
     player_info = db.query(models.Player).filter(func.lower(models.Player.full_name)==name.lower()).first()
     if player_info:
