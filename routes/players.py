@@ -6,7 +6,6 @@ from nba_api.stats.static import players
 from nba_api.stats.endpoints import CommonPlayerInfo
 from sqlalchemy import func
 
-
 router = APIRouter()
 
 def fetch_player_info(name: str, db: Session):
@@ -22,16 +21,20 @@ def fetch_player_info(name: str, db: Session):
     if player_exists:
         player = CommonPlayerInfo(player_id=player_exists['id']).get_dict()["resultSets"]
         rowSet = player[0]['rowSet'][0]
-        player_dict = { "player_id": rowSet[indexes["PERSON_ID"]], "first_name": rowSet[indexes["FIRST_NAME"]],
-                        "last_name": rowSet[indexes["LAST_NAME"]], "full_name": rowSet[indexes["DISPLAY_FIRST_LAST"]],
-                        "birthdate": rowSet[indexes["BIRTHDATE"]], "height": rowSet[indexes["HEIGHT"]],
-                        "weight": rowSet[indexes["WEIGHT"]], "years_in_league": rowSet[indexes["SEASON_EXP"]]}
-        player_info = models.Player(player_id=player_dict["player_id"], first_name=player_dict["first_name"], last_name=player_dict["last_name"],
-                                    full_name=player_dict["full_name"], birthdate=player_dict["birthdate"], height=player_dict["height"],
-                                    weight=player_dict["weight"], years_in_league=player_dict["years_in_league"])
+        player_info = models.Player(
+            player_id=rowSet[indexes["PERSON_ID"]], 
+            first_name=rowSet[indexes["FIRST_NAME"]],
+            last_name=rowSet[indexes["LAST_NAME"]], 
+            full_name=rowSet[indexes["DISPLAY_FIRST_LAST"]],
+            birthdate=rowSet[indexes["BIRTHDATE"]], 
+            height=rowSet[indexes["HEIGHT"]],
+            weight=rowSet[indexes["WEIGHT"]], 
+            years_in_league=rowSet[indexes["SEASON_EXP"]]
+        )
         db.add(player_info)
         db.commit()
         db.refresh(player_info)
+
         return player_info
 
 @router.get("/{name}", tags=["players"])
@@ -39,4 +42,5 @@ async def get_player(name: str, db: Session=Depends(get_db)):
     player_info = fetch_player_info(name, db)
     if player_info:
         return { "player_info": player_info}
+
     return { "status": False, "message": "Player not found" }
