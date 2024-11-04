@@ -1,5 +1,5 @@
 from .db import Base
-from sqlalchemy import Column, Integer, String, TIMESTAMP, ForeignKey, Float
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Float
 
 
 class Player(Base):
@@ -9,7 +9,7 @@ class Player(Base):
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
     full_name = Column(String, nullable=False)
-    birthdate = Column(TIMESTAMP, nullable=False)
+    birthdate = Column(DateTime, nullable=False)
     player_headshot_url = Column(String)
     height = Column(String, nullable=False)
     weight = Column(Integer, nullable=False)
