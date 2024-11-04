@@ -10,6 +10,7 @@ class Player(Base):
     last_name = Column(String, nullable=False)
     full_name = Column(String, nullable=False)
     birthdate = Column(TIMESTAMP, nullable=False)
+    player_headshot_url = Column(String)
     height = Column(String, nullable=False)
     weight = Column(Integer, nullable=False)
     years_in_league = Column(Integer, nullable=False)
