@@ -47,6 +47,5 @@ def fetch_player_info(name: str, db: Session):
 async def get_player(name: str, db: Session=Depends(get_db)):
     player_info = fetch_player_info(name, db)
     if player_info:
-        return { "player_info": player_info}
-
+        return { "status": True, "player_info": player_info }
     return { "status": False, "message": "Player not found" }

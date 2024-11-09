@@ -44,6 +44,8 @@ router = APIRouter()
 @router.get("/{name}/postseason", tags=["stats"])
 async def get_yearly_postseason_stats(name: str, db: Session=Depends(get_db)):
     player = fetch_player_info(name, db)
+    if not player:
+        return { "status": False, "message": "Player not found" }
     player_stats = PlayerCareerStats(player_id=player.player_id).get_dict()["resultSets"][2]["rowSet"]
     # might have to get all the stats and compare to player_stats then i can skip it
     # if not i can add the new stats
@@ -118,6 +120,8 @@ async def get_yearly_postseason_stats(name: str, db: Session=Depends(get_db)):
 @router.get("/{name}/regseason", tags=["stats"])
 async def get_yearly_regseason_stats(name: str, db: Session=Depends(get_db)):
     player = fetch_player_info(name, db)
+    if not player:
+        return { "status": False, "message": "Player not found" }
     player_stats = PlayerCareerStats(player_id=player.player_id).get_dict()["resultSets"][0]["rowSet"]
     # return {"player_stats": player_stats}
     stats_exists = db.query(models.Season).filter(
@@ -136,7 +140,8 @@ async def get_yearly_regseason_stats(name: str, db: Session=Depends(get_db)):
         return { "reg_season_stats": player_stats }
     
     stats = []
-    for stat in player_stats:
+    for i in range(len(player_stats)-1):
+        stat = player_stats[i]
         season_id = str(player.player_id) + stat[indexes["season_id"]]
         season_exists = db.query(models.Season).filter(
             and_(
@@ -188,10 +193,9 @@ async def get_yearly_regseason_stats(name: str, db: Session=Depends(get_db)):
     
     return { "reg_season_stats": player_stats }
 
-# add post season yearly stats also, i think i have to use the playercareerstats endpoint
 # @router.get("/{name}", tags=["stats"])
 # async def get_yearly_stats(name: str, db: Session=Depends(get_db)):
-#     player = fetch_player_info(name, db)
-#     reg_season_stats = await get_yearly_regseason_stats(player, db)
-#     post_season_stats = await get_yearly_postseason_stats(player, db)
+#     # player = fetch_player_info(name, db)
+#     reg_season_stats = await get_yearly_regseason_stats(name, db)
+#     post_season_stats = await get_yearly_postseason_stats(name, db)
 #     return { "reg_season_stats": reg_season_stats, "post_season_stats": post_season_stats }
