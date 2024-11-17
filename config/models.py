@@ -1,5 +1,5 @@
 from .db import Base
-from sqlalchemy import Column, Integer, String, TIMESTAMP, ForeignKey, Float
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Float, Boolean
 
 
 class Player(Base):
@@ -9,7 +9,8 @@ class Player(Base):
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
     full_name = Column(String, nullable=False)
-    birthdate = Column(TIMESTAMP, nullable=False)
+    birthdate = Column(DateTime, nullable=False)
+    player_headshot_url = Column(String)
     height = Column(String, nullable=False)
     weight = Column(Integer, nullable=False)
     years_in_league = Column(Integer, nullable=False)
@@ -21,6 +22,7 @@ class Season(Base):
     season_id = Column(String, primary_key=True, nullable=False)
     player_id = Column(Integer, ForeignKey("Player.player_id"))
     year = Column(String, nullable=False)
+    post_season = Column(Boolean, nullable=False)
     
     GP = Column(Integer)
     MIN = Column(Integer)
@@ -43,7 +45,7 @@ class Season(Base):
     DREB = Column(Integer)
     TOV = Column(Integer)
     PF = Column(Integer)
-
+    
 
 
     

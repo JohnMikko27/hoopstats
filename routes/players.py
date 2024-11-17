@@ -8,6 +8,9 @@ from sqlalchemy import func
 
 router = APIRouter()
 
+def get_player_headshot_url(player_id):
+    return f"https://cdn.nba.com/headshots/nba/latest/1040x760/{player_id}.png"
+
 def fetch_player_info(name: str, db: Session):
     indexes = { "PERSON_ID": 0, "FIRST_NAME": 1, "LAST_NAME": 2, "DISPLAY_FIRST_LAST": 3,
             "BIRTHDATE": 7, "HEIGHT": 11, "WEIGHT": 12, "SEASON_EXP": 13}
@@ -20,7 +23,9 @@ def fetch_player_info(name: str, db: Session):
     player_exists = players.find_players_by_full_name(name)[0] if players.find_players_by_full_name(name) else None
     if player_exists:
         player = CommonPlayerInfo(player_id=player_exists['id']).get_dict()["resultSets"]
+        
         rowSet = player[0]['rowSet'][0]
+        player_headshot = get_player_headshot_url(rowSet[indexes["PERSON_ID"]])
         player_info = models.Player(
             player_id=rowSet[indexes["PERSON_ID"]], 
             first_name=rowSet[indexes["FIRST_NAME"]],
@@ -29,7 +34,8 @@ def fetch_player_info(name: str, db: Session):
             birthdate=rowSet[indexes["BIRTHDATE"]], 
             height=rowSet[indexes["HEIGHT"]],
             weight=rowSet[indexes["WEIGHT"]], 
-            years_in_league=rowSet[indexes["SEASON_EXP"]]
+            years_in_league=rowSet[indexes["SEASON_EXP"]], 
+            player_headshot_url=player_headshot
         )
         db.add(player_info)
         db.commit()
@@ -41,6 +47,5 @@ def fetch_player_info(name: str, db: Session):
 async def get_player(name: str, db: Session=Depends(get_db)):
     player_info = fetch_player_info(name, db)
     if player_info:
-        return { "player_info": player_info}
-
+        return { "status": True, "player_info": player_info }
     return { "status": False, "message": "Player not found" }
