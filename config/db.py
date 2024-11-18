@@ -5,7 +5,12 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-SQLALCHEMY_DATABASE_URL = os.environ.get("DB_URL")
+# SQLALCHEMY_DATABASE_URL = os.environ.get("DB_URL")
+SQLALCHEMY_DATABASE_URL = ""
+if os.environ.get("RUN_MODE") == "DEVELOPMENT":
+    SQLALCHEMY_DATABASE_URL = os.environ.get("DB_URL")
+else:
+    SQLALCHEMY_DATABASE_URL = os.environ.get("DATABASE_URL")
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
