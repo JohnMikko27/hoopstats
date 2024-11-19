@@ -1,10 +1,11 @@
 from fastapi import FastAPI
-from .config import models as models
-from .config.db import engine
-from .routes.players import router as players_router
-from .routes.stats import router as stats_router
 from fastapi.middleware.cors import CORSMiddleware
+from config import models as models
+from config.db import engine
+from routes.players import router as players_router
+from routes.stats import router as stats_router
 
+# might have to change every relative import in the project to absolute import
 
 app = FastAPI()
 models.Base.metadata.create_all(bind=engine)
