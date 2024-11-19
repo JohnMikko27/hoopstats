@@ -4,10 +4,10 @@ from sqlalchemy.orm import Session
 from sqlalchemy import and_
 from nba_api.stats.static import players
 from nba_api.stats.endpoints import PlayerCareerStats
-from ..config.db import get_db
-from ..config import models
+from config.db import get_db
+from config import models
 from .players import fetch_player_info
-from ..utils.utils import truncate
+from utils.utils import truncate
 
 
 indexes = {

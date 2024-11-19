@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 from nba_api.stats.static import players
 from nba_api.stats.endpoints import CommonPlayerInfo
 from sqlalchemy import func
-from ..config.db import get_db
-from ..config import models
+from config.db import get_db
+from config import models
 
 router = APIRouter()
 
