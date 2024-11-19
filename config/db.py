@@ -11,7 +11,7 @@ if os.environ.get("RUN_MODE") == "DEVELOPMENT":
     SQLALCHEMY_DATABASE_URL = os.environ.get("DB_URL")
 else:
     SQLALCHEMY_DATABASE_URL = os.environ.get("DATABASE_URL")
-
+print(SQLALCHEMY_DATABASE_URL)
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
