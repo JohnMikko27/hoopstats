@@ -13,6 +13,7 @@ origins = [
     "https://localhost.tiangolo.com",
     "http://localhost:5173",
     "http://localhost:8080",
+    "https://hoop-talk.netlify.app/"
 ]
 
 app.add_middleware(
