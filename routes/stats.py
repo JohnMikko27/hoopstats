@@ -150,7 +150,11 @@ async def get_yearly_regseason_stats(name: str, db: Session=Depends(get_db)):
             ).first()
         if season_exists:
             continue
-        true_shooting = truncate((stat[indexes["PTS"]] / (2 * (stat[indexes["FGA"]] + (0.44 * stat[indexes["FTA"]]))))*100, 1)
+        divisor = (2 * (stat[indexes["FGA"]] + (0.44 * stat[indexes["FTA"]])))
+        if divisor == 0:
+            true_shooting = 0
+        else:
+            true_shooting = truncate((stat[indexes["PTS"]] / divisor)*100, 1)
         player_obj = models.Season(
             season_id=season_id,
             player_id=player.player_id,
